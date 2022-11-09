@@ -13,6 +13,8 @@ class Factor(Document):
 class Payment(Document):
     amount = IntField(required=True)
     factor_id = ReferenceField(Factor)
-    status = StringField(max_length=10, required=False)
-    status_code = IntField(required=False)
+    trace_id = StringField(max_length=50, required=False)
+    status = StringField(max_length=10, required=True, default="not-paid")  # not-paid , succeeded , failed
+    status_code = IntField(required=True, default=-1)  # default = -1
+    status_description = StringField(required=False)
     created_at = DateTimeField(required=True, default=datetime.datetime.now)
