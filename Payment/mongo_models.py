@@ -3,7 +3,7 @@ import datetime
 
 
 class Factor(Document):
-    order_id = ObjectIdField(required=True)
+    order_id = ObjectIdField(required=True, unique=True)
     amount = IntField(required=True)
     status = StringField(max_length=10, required=True, default="created")  # created - paid
     status_code = IntField(required=True, default=-1)
