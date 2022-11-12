@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 import os
 import zibal.zibal as zibal
@@ -9,8 +8,7 @@ from Payment.mongo_models import Factor, Payment
 merchant = os.getenv("ZIBAL_MERCHANT")
 
 
-@csrf_exempt
-@require_http_methods(["POST"])
+@require_http_methods(["GET"])
 def pay_factor(req, factor_id):
     factor = Factor.objects.get(
         pk=factor_id
@@ -36,7 +34,6 @@ def pay_factor(req, factor_id):
     return redirect(f"https://gateway.zibal.ir/start/{payment.trace_id}")
 
 
-@csrf_exempt
 @require_http_methods(["GET"])
 def verify_payment(request, payment_id):
     payment = Payment.objects.get(
