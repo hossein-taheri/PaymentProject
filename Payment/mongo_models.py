@@ -4,6 +4,7 @@ import datetime
 
 class Factor(Document):
     order_id = ObjectIdField(required=True, unique=True)
+    phone_number = StringField(required=True)
     amount = IntField(required=True)
     status = StringField(required=True, default="created")  # created - paid
     status_code = IntField(required=True, default=-1)

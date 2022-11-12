@@ -4,6 +4,7 @@ from django.views.decorators.http import require_http_methods
 import os
 import zibal.zibal as zibal
 from Payment.mongo_models import Factor, Payment
+from ZibalEntrance.tasks import send_sms
 
 merchant = os.getenv("ZIBAL_MERCHANT")
 
@@ -57,6 +58,6 @@ def verify_payment(request, payment_id):
         factor.status_code = 1
         factor.save()
 
-        # send message was successful to celery
+        send_sms.delay(factor.phone_number, f"Your factor with {factor.amount * 10} IRR paid")
 
     return HttpResponse(payment.status)

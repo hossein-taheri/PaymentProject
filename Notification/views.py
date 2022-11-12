@@ -7,7 +7,7 @@ password = os.getenv('RAYGANSMS_PASSWORD')
 sender_number = os.getenv('RAYGANSMS_SENDER_NUMBER')
 
 
-def send_sms(receiver, message):
+def send_notification_via_sms(receiver, message):
     url = "https://RayganSMS.com/SendMessageWithUrl.ashx"
 
     params = {

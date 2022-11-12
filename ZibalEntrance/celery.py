@@ -4,5 +4,6 @@ from celery import Celery
 
 app = Celery('ZibalEntrance')
 
-app.config_from_object('ZibalEntrance.celery_config')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ZibalEntrance.settings')
 
+app.config_from_object('django.conf:settings', namespace='CELERY')
