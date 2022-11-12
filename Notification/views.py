@@ -1,7 +1,6 @@
 import os
-
-from django.shortcuts import render
-from kavenegar import *
+import requests
+from Notification.mongo_models import Notification
 
 user_name = os.getenv('RAYGANSMS_USERNAME')
 password = os.getenv('RAYGANSMS_PASSWORD')
@@ -9,8 +8,6 @@ sender_number = os.getenv('RAYGANSMS_SENDER_NUMBER')
 
 
 def SendSMS(receiver, message):
-    import requests
-
     url = "https://RayganSMS.com/SendMessageWithUrl.ashx"
 
     params = {
@@ -23,4 +20,9 @@ def SendSMS(receiver, message):
 
     response = requests.request("GET", url, params=params)
 
-    print(response.text)
+    Notification(
+        media="SMS",
+        receivers=[receiver],
+        message=message,
+        status_code=response.status_code
+    ).save()
