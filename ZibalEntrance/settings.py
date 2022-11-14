@@ -113,8 +113,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_RESULT_BACKEND = 'mongodb://127.0.0.1:27017'
+CELERY_BROKER_URL = 'redis://redis'
+CELERY_RESULT_BACKEND = 'mongodb://mongodb'
 CELERY_INCLUDE = ['ZibalEntrance.tasks']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

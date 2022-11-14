@@ -1,0 +1,37 @@
+version: "3"
+services:
+  django_app:
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mongodb
+      - redis
+    depends_on:
+      - mongodb
+      - redis
+    volumes:
+      - ./ZibalEntrance:/ZibalEntrance
+  celery:
+    image: celery:3.1
+    container_name: celery
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A ZibalEntrance worker -l INFO
+    volumes:
+      - .:/ZibalEntrance
+    depends_on:
+      - redis
+      - mongodb
+      - django_app
+    links:
+      - mongodb
+      - redis
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+  redis:
+    image: redis

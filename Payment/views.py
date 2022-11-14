@@ -20,7 +20,7 @@ def pay_factor(req, factor_id):
         amount=factor.amount,
     ).save()
 
-    callback_url = f"http://127.0.0.1:8000/payment/verify_payment/{payment.id}"
+    callback_url = f"http://127.0.0.1:3000/payment/verify_payment/{payment.id}"
 
     zb = zibal.zibal(merchant, callback_url)
     amount = payment.amount * 10
