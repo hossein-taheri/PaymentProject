@@ -10,7 +10,7 @@ merchant = os.getenv("ZIBAL_MERCHANT")
 
 
 @require_http_methods(["GET"])
-def pay_factor(req, factor_id):
+def pay_factor(request, factor_id):
     factor = Factor.objects.get(
         pk=factor_id
     )
@@ -20,7 +20,7 @@ def pay_factor(req, factor_id):
         amount=factor.amount,
     ).save()
 
-    callback_url = f"http://127.0.0.1:3000/payment/verify_payment/{payment.id}"
+    callback_url = f"http://{request.get_host()}/payment/verify_payment/{payment.id}"
 
     zb = zibal.zibal(merchant, callback_url)
     amount = payment.amount * 10
