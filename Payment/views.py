@@ -4,7 +4,7 @@ from django.views.decorators.http import require_http_methods
 import os
 import zibal.zibal as zibal
 from Payment.mongo_models import Factor, Payment
-from ZibalEntrance.tasks import send_sms
+from PaymentProject.tasks import send_sms
 
 merchant = os.getenv("ZIBAL_MERCHANT")
 

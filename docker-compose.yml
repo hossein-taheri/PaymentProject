@@ -11,7 +11,7 @@ services:
       - mongodb
       - redis
     volumes:
-      - ./ZibalEntrance:/ZibalEntrance
+      - ./PaymentProject:/PaymentProject
   celery:
     image: celery:3.1
     container_name: celery
@@ -19,9 +19,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: celery -A ZibalEntrance worker -l INFO
+    command: celery -A PaymentProject worker -l INFO
     volumes:
-      - .:/ZibalEntrance
+      - .:/PaymentProject
     depends_on:
       - redis
       - mongodb
